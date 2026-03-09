@@ -322,6 +322,11 @@ Page({
   },
 
   onCloseChipModal() {
+    const { selectedChip, useCustomChip, customChipValue } = this.data;
+    if (selectedChip || (useCustomChip && customChipValue)) {
+      this.onConfirmChip();
+      return;
+    }
     if (!this.data.room.chipValue) {
       wx.showToast({ title: "请先选择筹码", icon: "none" });
       return;
