@@ -31,7 +31,7 @@
   },
   "cloudfunctionRoot": "cloudfunctions/",
   "compileType": "miniprogram",
-  "libVersion": "3.6.0",
+  "libVersion": "3.14.3",
   "appid": "wx6931d8942c409f6d",
   "projectname": "shaoji-score",
   "condition": {},

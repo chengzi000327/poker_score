@@ -155,14 +155,14 @@
           wx:for="{{chipOptions}}"
           wx:key="*this"
           class="chip-option {{selectedChip === item && !useCustomChip ? 'selected' : ''}}"
-          bindtap="onSelectChip"
+          catchtap="onSelectChip"
           data-val="{{item}}"
         >
           <text>{{item}}元</text>
         </view>
         <view
           class="chip-option custom {{useCustomChip ? 'selected' : ''}}"
-          bindtap="onSelectCustomChip"
+          catchtap="onSelectCustomChip"
         >
           <text>自定义</text>
         </view>
@@ -177,7 +177,7 @@
         />
         <text class="custom-chip-unit">元</text>
       </view>
-      <button class="modal-confirm-btn" bindtap="onConfirmChip">确定</button>
+      <button class="modal-confirm-btn" catchtap="onConfirmChip">确定</button>
     </view>
   </view>
 </view>
