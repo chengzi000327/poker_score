@@ -1,5 +1,5 @@
 const { getCurrentUser } = require("../../utils/userStore");
-const { getAllRounds } = require("../../utils/statsStore");
+const { getAllRounds, clearUserRounds } = require("../../utils/statsStore");
 
 Page({
   data: {
@@ -33,5 +33,27 @@ Page({
     });
 
     this.setData({ rounds, empty: rounds.length === 0 });
+  },
+
+  onClearHistory() {
+    const user = getCurrentUser();
+    if (!user) return;
+    if (this.data.empty) {
+      wx.showToast({ title: "暂无可清空的战绩", icon: "none" });
+      return;
+    }
+
+    wx.showModal({
+      title: "清空战绩",
+      content: "确认清空当前账号的全部历史战绩吗？清空后无法恢复。",
+      confirmText: "确认清空",
+      confirmColor: "#f53f3f",
+      success: (res) => {
+        if (!res.confirm) return;
+        clearUserRounds(user.id);
+        this.setData({ rounds: [], empty: true });
+        wx.showToast({ title: "已清空", icon: "success" });
+      },
+    });
   },
 });

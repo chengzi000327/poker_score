@@ -40,28 +40,8 @@ Page({
     wx.navigateTo({ url: "/pages/index/index" });
   },
 
-  onScanJoin() {
-    wx.scanCode({
-      onlyFromCamera: false,
-      success: (res) => {
-        const result = res.result || "";
-        let roomCode = "";
-        if (result.startsWith("SHAOJI:")) {
-          roomCode = result.replace("SHAOJI:", "").trim();
-        } else if (/^\d{6}$/.test(result.trim())) {
-          roomCode = result.trim();
-        }
-
-        if (roomCode) {
-          wx.navigateTo({ url: `/pages/room/index?roomCode=${roomCode}` });
-        } else {
-          this.showManualJoin();
-        }
-      },
-      fail: () => {
-        this.showManualJoin();
-      },
-    });
+  onJoinRoom() {
+    this.showManualJoin();
   },
 
   showManualJoin() {

@@ -38,4 +38,10 @@ function getUserStats(userId) {
   return { totalRounds, totalEarnings, wins, losses, winRate };
 }
 
-module.exports = { saveRound, getUserStats, getAllRounds };
+function clearUserRounds(userId) {
+  const rounds = getAllRounds();
+  const rest = rounds.filter((r) => r.userId !== userId);
+  wx.setStorageSync(ROUNDS_KEY, rest);
+}
+
+module.exports = { saveRound, getUserStats, getAllRounds, clearUserRounds };

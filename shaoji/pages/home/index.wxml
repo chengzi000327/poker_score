@@ -29,7 +29,7 @@
 
   <view class="action-row">
     <button class="action-btn start" bindtap="onStartGame">我要开房</button>
-    <button class="action-btn join" bindtap="onScanJoin">加入房间</button>
+    <button class="action-btn join" bindtap="onJoinRoom">加入房间</button>
   </view>
 
   <view class="footer-row">

@@ -20,4 +20,8 @@
       </view>
     </view>
   </view>
+
+  <view class="history-footer" wx:if="{{!empty}}">
+    <button class="clear-btn" bindtap="onClearHistory">清空战绩</button>
+  </view>
 </view>
