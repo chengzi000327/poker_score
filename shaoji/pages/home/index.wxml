@@ -1,0 +1,40 @@
+<view class="home-page" wx:if="{{user}}">
+  <view class="profile-card">
+    <view class="avatar-wrap">
+      <image wx:if="{{user.avatarUrl}}" class="avatar" src="{{user.avatarUrl}}" mode="aspectFill" />
+      <view wx:else class="avatar placeholder"></view>
+    </view>
+    <view class="nick-name">{{user.nickName}}</view>
+
+    <view class="stats-row">
+      <view class="stat-card">
+        <text class="stat-value">{{totalRounds}}</text>
+        <text class="stat-label">总局数</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value stat-win">{{wins}}</text>
+        <text class="stat-label">赢</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value stat-lose">{{losses}}</text>
+        <text class="stat-label">输</text>
+      </view>
+    </view>
+
+    <view class="record-row">
+      <text class="rate">胜率 {{winRate}}%</text>
+      <text class="history-link" bindtap="onViewHistory">战绩 ></text>
+    </view>
+  </view>
+
+  <view class="action-row">
+    <button class="action-btn start" bindtap="onStartGame">我要开房</button>
+    <button class="action-btn join" bindtap="onScanJoin">加入房间</button>
+  </view>
+
+  <view class="footer-row">
+    <button class="footer-btn" bindtap="onSwitchAccount">切换账号</button>
+    <button class="footer-btn" open-type="contact">客服</button>
+    <button class="footer-btn" bindtap="onManual">使用手册</button>
+  </view>
+</view>

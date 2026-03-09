@@ -1,0 +1,220 @@
+.login-page {
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+/* ========== Logo 区域 ========== */
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100rpx;
+  margin-bottom: 60rpx;
+}
+
+.logo-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+}
+
+.logo-title {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #1f2329;
+  letter-spacing: 2rpx;
+}
+
+.logo-desc {
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 12rpx;
+}
+
+/* ========== 表单区域 ========== */
+.form-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 头像按钮 */
+.avatar-btn {
+  width: 120rpx;
+  height: 120rpx;
+  padding: 0;
+  margin: 0 0 40rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f7f8fa;
+  border: 3rpx dashed #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  min-height: 0;
+}
+.avatar-btn::after { display: none; }
+
+.avatar-btn.has-avatar {
+  border: none;
+  background: transparent;
+}
+
+.avatar-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.avatar-plus {
+  font-size: 52rpx;
+  color: #ccc;
+  line-height: 1;
+  font-weight: 300;
+}
+
+/* 昵称输入 */
+.input-wrap {
+  width: 60%;
+  margin-bottom: 32rpx;
+}
+
+.nick-input {
+  width: 100%;
+  height: 88rpx;
+  background: #f7f8fa;
+  border-radius: 44rpx;
+  padding: 0 32rpx;
+  font-size: 30rpx;
+  color: #1f2329;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.input-wrap.has-nick {
+  width: auto;
+}
+
+.input-wrap.has-nick .nick-input {
+  background: transparent;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2329;
+  height: auto;
+  padding: 12rpx 0;
+}
+
+/* 创建按钮 */
+.create-btn {
+  width: 80%;
+  height: 96rpx;
+  line-height: 96rpx;
+  background: linear-gradient(135deg, #ff6a00, #ff9a40);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 48rpx;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  letter-spacing: 2rpx;
+}
+.create-btn::after { display: none; }
+.create-btn:active {
+  opacity: 0.85;
+}
+
+/* ========== 已有用户 ========== */
+.quick-section {
+  width: 100%;
+  margin-top: 56rpx;
+}
+
+.quick-divider {
+  display: flex;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1rpx;
+  background: #eee;
+}
+
+.divider-text {
+  font-size: 24rpx;
+  color: #bbb;
+  padding: 0 24rpx;
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f7f8fa;
+  border-radius: 20rpx;
+  padding: 20rpx 24rpx;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.user-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #f2f3f5;
+  flex-shrink: 0;
+}
+
+.user-avatar-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  border: 1rpx solid #eee;
+}
+
+.user-nick {
+  font-size: 30rpx;
+  color: #1f2329;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-del {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #ccc;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+.user-del:active {
+  background: #fff0f0;
+  color: #f53f3f;
+}

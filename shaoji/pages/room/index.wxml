@@ -1,0 +1,183 @@
+<view class="room-page" wx:if="{{room}}">
+  <!-- 横向头像栏：固定4格 -->
+  <view class="avatar-row">
+    <view class="avatar-col" wx:for="{{fourSlots}}" wx:key="index">
+      <block wx:if="{{item}}">
+        <image
+          wx:if="{{item.avatarUrl}}"
+          class="seat-circle"
+          src="{{item.avatarUrl}}"
+          mode="aspectFill"
+        />
+        <view wx:else class="seat-circle seat-empty">
+          <text>👤</text>
+        </view>
+        <text class="seat-nick">{{item.nickName}}</text>
+        <text class="seat-score {{item.score > 0 ? 'score-pos' : item.score < 0 ? 'score-neg' : ''}}">{{item.score >= 0 ? '+' : ''}}{{item.score || 0}}</text>
+      </block>
+      <block wx:else>
+        <view class="seat-circle seat-invite" bindtap="onTapInvite">
+          <text class="invite-plus">+</text>
+        </view>
+        <text class="seat-nick seat-nick-muted">邀请好友</text>
+      </block>
+    </view>
+  </view>
+
+  <!-- 房间信息条 -->
+  <view class="room-info-bar">
+    <text class="info-item">房间号：{{room.roomCode}}</text>
+    <text class="info-sep">·</text>
+    <text class="info-item">筹码 {{room.chipValue || '-'}}元</text>
+    <text class="info-sep">·</text>
+    <text class="info-item">{{seats.length}}/4人</text>
+  </view>
+
+  <!-- 主操作按钮 -->
+  <view class="start-wrap">
+    <view class="start-btn" bindtap="onStartRound">开始记一局</view>
+  </view>
+
+  <!-- 房间动态 -->
+  <view class="feed-section">
+    <view class="feed-header">
+      <text class="feed-title">房间动态</text>
+    </view>
+    <scroll-view scroll-y class="feed-list" enhanced show-scrollbar="{{false}}">
+      <view wx:for="{{feed}}" wx:key="time" class="feed-item {{item.isAI ? 'feed-ai' : ''}}">
+        <text class="feed-time">{{item.timeStr}}</text>
+        <text wx:if="{{item.isAI}}" class="ai-tag">AI</text>
+        <text class="feed-msg">{{item.message}}</text>
+      </view>
+      <view wx:if="{{feed.length === 0}}" class="feed-empty">
+        <text>暂无动态</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部固定操作栏 -->
+  <view class="footer-bar">
+    <view class="footer-item" bindtap="onSettleRoom">
+      <text class="footer-text">房间结算</text>
+    </view>
+    <view class="footer-item" wx:if="{{isHost}}" bindtap="showChipPicker">
+      <text class="footer-text">修改筹码</text>
+    </view>
+    <view class="footer-item footer-warn" bindtap="onLeaveRoom">
+      <text class="footer-text">退出房间</text>
+    </view>
+  </view>
+
+  <!-- ========== 记一局弹窗 ========== -->
+  <view class="modal-mask" wx:if="{{showRoundModal}}" bindtap="onCloseRoundModal">
+    <view class="modal-body" catchtap="">
+
+      <!-- 未结算：输入问题 -->
+      <block wx:if="{{!roundResult}}">
+        <text class="modal-title">记一局</text>
+
+        <!-- Q1 奖和烧鸡 -->
+        <view class="q-section">
+          <text class="q-label">你这局有几个奖？</text>
+          <view class="stepper">
+            <text class="stepper-btn" catchtap="onStepJiang" data-dir="-1">−</text>
+            <text class="stepper-num">{{roundJiang}}</text>
+            <text class="stepper-btn" catchtap="onStepJiang" data-dir="1">+</text>
+          </view>
+        </view>
+
+        <view class="q-section">
+          <text class="q-label">你这局烧了几个鸡？</text>
+          <view class="stepper">
+            <text class="stepper-btn" catchtap="onStepBurn" data-dir="-1">−</text>
+            <text class="stepper-num">{{roundBurn}}</text>
+            <text class="stepper-btn" catchtap="onStepBurn" data-dir="1">+</text>
+          </view>
+        </view>
+
+        <!-- Q2 输赢 -->
+        <view class="q-section">
+          <text class="q-label">你这局是？</text>
+          <view class="toggle-group">
+            <view class="toggle-item {{roundWin === true ? 'active' : ''}}" catchtap="onSetWin" data-val="true">赢了</view>
+            <view class="toggle-item {{roundWin === false ? 'active' : ''}}" catchtap="onSetWin" data-val="false">输了</view>
+          </view>
+        </view>
+
+        <!-- Q3 档位 -->
+        <view class="q-section" wx:if="{{roundWin !== ''}}">
+          <text class="q-label">{{roundWin ? '赢了多少？' : '输了多少？'}}</text>
+          <view class="toggle-group">
+            <view class="toggle-item {{roundLevel === 1 ? 'active' : ''}}" catchtap="onSetLevel" data-val="1">{{roundWin ? '赢了1' : '输了1'}}</view>
+            <view class="toggle-item {{roundLevel === 2 ? 'active' : ''}}" catchtap="onSetLevel" data-val="2">{{roundWin ? '关了对方' : '被关了'}}</view>
+          </view>
+        </view>
+
+        <button class="modal-confirm-btn" catchtap="onSettleRound">结算本局</button>
+      </block>
+
+      <!-- 已结算：显示结果 -->
+      <block wx:if="{{roundResult}}">
+        <text class="modal-title">本局结果</text>
+
+        <view class="result-box {{roundResult.totalMoney >= 0 ? 'result-win' : 'result-lose'}}">
+          <text class="result-money">{{roundResult.totalMoney >= 0 ? '+' : ''}}{{roundResult.totalMoney}} 元</text>
+          <text class="result-chips">{{roundResult.totalChips >= 0 ? '+' : ''}}{{roundResult.totalChips}} 筹码</text>
+        </view>
+
+        <view class="result-detail">
+          <view class="detail-row">
+            <text class="detail-label">奖</text>
+            <text class="detail-val">{{roundJiang}} 个 → {{roundResult.awardChips >= 0 ? '+' : ''}}{{roundResult.awardChips}} 筹码</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-label">烧鸡</text>
+            <text class="detail-val">{{roundBurn}} 个 → {{roundResult.burnChips >= 0 ? '+' : ''}}{{roundResult.burnChips}} 筹码</text>
+          </view>
+          <view class="detail-row">
+            <text class="detail-label">{{roundWin ? '赢局' : '输局'}}</text>
+            <text class="detail-val">{{roundLevel === 2 ? (roundWin ? '关了对方' : '被关') : (roundWin ? '赢1' : '输1')}} → {{roundResult.teamChips >= 0 ? '+' : ''}}{{roundResult.teamChips}} 筹码</text>
+          </view>
+        </view>
+
+        <button class="modal-confirm-btn" catchtap="onSaveRound">保存并关闭</button>
+      </block>
+    </view>
+  </view>
+
+  <!-- ========== 筹码选择弹窗 ========== -->
+  <view class="modal-mask" wx:if="{{showChipModal}}" bindtap="onCloseChipModal">
+    <view class="modal-body" catchtap="">
+      <text class="modal-title">请选择你们的筹码</text>
+      <text class="modal-subtitle">每个筹码值多少钱？</text>
+      <view class="chip-grid">
+        <view
+          wx:for="{{chipOptions}}"
+          wx:key="*this"
+          class="chip-option {{selectedChip === item && !useCustomChip ? 'selected' : ''}}"
+          bindtap="onSelectChip"
+          data-val="{{item}}"
+        >
+          <text>{{item}}元</text>
+        </view>
+        <view
+          class="chip-option custom {{useCustomChip ? 'selected' : ''}}"
+          bindtap="onSelectCustomChip"
+        >
+          <text>自定义</text>
+        </view>
+      </view>
+      <view class="custom-chip-row" wx:if="{{useCustomChip}}">
+        <input
+          class="custom-chip-input"
+          type="digit"
+          placeholder="请输入金额"
+          value="{{customChipValue}}"
+          bindinput="onCustomChipInput"
+        />
+        <text class="custom-chip-unit">元</text>
+      </view>
+      <button class="modal-confirm-btn" bindtap="onConfirmChip">确定</button>
+    </view>
+  </view>
+</view>

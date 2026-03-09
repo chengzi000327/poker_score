@@ -1,0 +1,77 @@
+.page {
+  padding-bottom: 24rpx;
+}
+
+.tip {
+  color: #86909c;
+}
+
+.user-card {
+  border-top: 1rpx solid #f2f3f5;
+  padding: 14rpx 0;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.avatar-btn {
+  width: 88rpx;
+  height: 88rpx;
+  padding: 0;
+  border-radius: 44rpx;
+  overflow: hidden;
+  background: #f2f3f5;
+}
+
+.avatar {
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.avatar-placeholder {
+  width: 88rpx;
+  height: 88rpx;
+}
+
+.current-tag {
+  color: #1677ff;
+  font-size: 24rpx;
+  margin-bottom: 6rpx;
+}
+
+.name-input {
+  width: 360rpx;
+  border: 1rpx solid #dcdfe6;
+  border-radius: 8rpx;
+  padding: 10rpx 12rpx;
+}
+
+.button-row {
+  display: flex;
+  gap: 8rpx;
+  margin-top: 10rpx;
+}
+
+.mini-btn {
+  flex: 1;
+  font-size: 24rpx;
+}
+
+.mini-btn.primary {
+  background: #1677ff;
+  color: #fff;
+}
+
+.mini-btn.danger {
+  background: #ffece8;
+  color: #f53f3f;
+}

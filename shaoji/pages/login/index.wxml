@@ -1,0 +1,50 @@
+<view class="login-page">
+  <!-- 顶部 Logo 区域 -->
+  <view class="logo-area">
+    <view class="logo-icon">🐔</view>
+    <text class="logo-title">烧鸡记分</text>
+    <text class="logo-desc">选择头像和昵称，开始记分</text>
+  </view>
+
+  <!-- 头像选择 -->
+  <view class="form-area">
+    <button class="avatar-btn {{avatarUrl ? 'has-avatar' : ''}}" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <image wx:if="{{avatarUrl}}" class="avatar-img" src="{{avatarUrl}}" mode="aspectFill" />
+      <text wx:else class="avatar-plus">+</text>
+    </button>
+
+    <!-- 昵称输入 -->
+    <view class="input-wrap {{nickName ? 'has-nick' : ''}}">
+      <input
+        class="nick-input"
+        type="nickname"
+        placeholder="请输入昵称"
+        value="{{nickName}}"
+        bindinput="onNickNameInput"
+      />
+    </view>
+
+    <!-- 登录按钮 -->
+    <button class="create-btn" bindtap="onCreateAndLogin">创建并登录</button>
+  </view>
+
+  <!-- 已有用户 -->
+  <view class="quick-section" wx:if="{{users.length > 0}}">
+    <view class="quick-divider">
+      <view class="divider-line"></view>
+      <text class="divider-text">已有用户</text>
+      <view class="divider-line"></view>
+    </view>
+
+    <view class="user-list">
+      <view wx:for="{{users}}" wx:key="id" class="user-row">
+        <view class="user-info" data-id="{{item.id}}" bindtap="onQuickLogin">
+          <image wx:if="{{item.avatarUrl}}" class="user-avatar" src="{{item.avatarUrl}}" mode="aspectFill" />
+          <view wx:else class="user-avatar user-avatar-empty">👤</view>
+          <text class="user-nick">{{item.nickName}}</text>
+        </view>
+        <view class="user-del" data-id="{{item.id}}" bindtap="onDeleteUser">✕</view>
+      </view>
+    </view>
+  </view>
+</view>

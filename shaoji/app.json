@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/home/index",
+    "pages/room/index",
+    "pages/index/index",
+    "pages/manual/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "烧鸡记分",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f5f7fb"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

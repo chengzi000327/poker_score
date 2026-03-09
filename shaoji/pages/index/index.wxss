@@ -1,0 +1,104 @@
+.history-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 20rpx 24rpx 60rpx;
+  box-sizing: border-box;
+}
+
+/* 空状态 */
+.empty-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #999;
+}
+
+.empty-hint {
+  font-size: 26rpx;
+  color: #ccc;
+  margin-top: 12rpx;
+}
+
+/* 列表 */
+.round-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.round-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.round-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.round-date {
+  font-size: 24rpx;
+  color: #1f2329;
+  font-weight: 500;
+}
+
+.round-time {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.round-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.round-room {
+  font-size: 22rpx;
+  color: #bbb;
+}
+
+.round-chips {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 4rpx;
+}
+
+.round-right {
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.round-money {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: #999;
+}
+
+.round-money.money-win {
+  color: #00b42a;
+}
+
+.round-money.money-lose {
+  color: #f53f3f;
+}

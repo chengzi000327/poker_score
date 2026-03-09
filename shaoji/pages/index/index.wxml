@@ -1,0 +1,23 @@
+<view class="history-page">
+  <view wx:if="{{empty}}" class="empty-wrap">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无战绩记录</text>
+    <text class="empty-hint">去房间里玩几局吧</text>
+  </view>
+
+  <view wx:else class="round-list">
+    <view wx:for="{{rounds}}" wx:key="time" class="round-card">
+      <view class="round-left">
+        <text class="round-date">{{item.dateStr}}</text>
+        <text class="round-time">{{item.timeStr}}</text>
+      </view>
+      <view class="round-center">
+        <text class="round-room" wx:if="{{item.roomCode}}">房间 {{item.roomCode}}</text>
+        <text class="round-chips">{{item.chips >= 0 ? '+' : ''}}{{item.chips}} 筹码</text>
+      </view>
+      <view class="round-right">
+        <text class="round-money {{item.isWin ? 'money-win' : ''}} {{item.isLose ? 'money-lose' : ''}}">{{item.moneyText}}元</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,18 @@
+page {
+  background: #f5f7fb;
+  color: #1f2329;
+  font-size: 28rpx;
+}
+
+.section-card {
+  margin: 20rpx;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  background: #ffffff;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
