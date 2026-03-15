@@ -11,6 +11,7 @@ const {
   updatePlayerScore,
 } = require("../../utils/roomStore");
 const { saveRound } = require("../../utils/statsStore");
+const { buildTransfers } = require("../../utils/scoring");
 
 function formatTime(ts) {
   const d = new Date(ts);
@@ -338,13 +339,51 @@ Page({
 
   onSettleRoom() {
     if (!this.data.room) return;
-    const players = this.data.seats;
+    const players = this.data.seats || [];
+
+    const moneyList = players.map((p) => Number(p.score) || 0);
+    const nameList = players.map(
+      (p, idx) => p.nickName || `玩家${idx + 1}`
+    );
+
+    const totalMoney = moneyList.reduce((acc, cur) => acc + cur, 0);
+    const isConserved = Math.abs(totalMoney) < 0.01;
+
+    const transfers = buildTransfers(moneyList, nameList);
+
     const lines = players.map(
       (p) => `${p.nickName}：${p.score >= 0 ? "+" : ""}${p.score}元`
     );
+
+    if (lines.length === 0) {
+      lines.push("暂无数据");
+    }
+
+    if (transfers.length > 0) {
+      lines.push("");
+      lines.push("结算建议：");
+      transfers.forEach((t) => {
+        lines.push(
+          `${t.fromName} 支付 ${t.amount} 元 给 ${t.toName}`
+        );
+      });
+    } else {
+      lines.push("");
+      lines.push("大家互不相欠，无需转账。");
+    }
+
+    if (!isConserved) {
+      lines.push("");
+      lines.push(
+        `⚠️ 数据不守恒：当前合计 ${
+          totalMoney >= 0 ? "+" : ""
+        }${totalMoney} 元，请检查记录。`
+      );
+    }
+
     wx.showModal({
       title: "房间结算",
-      content: lines.join("\n") || "暂无数据",
+      content: lines.join("\n"),
       confirmText: "退出房间",
       cancelText: "继续玩",
       success: (res) => {

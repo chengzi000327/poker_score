@@ -20,6 +20,7 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  position: relative;
 }
 
 .seat-circle {
@@ -50,6 +51,23 @@
   font-size: 44rpx;
   color: #c0c4cc;
   line-height: 1;
+}
+
+/* 覆盖在邀请圆圈上的透明分享按钮，不影响视觉 */
+.invite-share-overlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -50rpx;
+  width: 100rpx;
+  height: 100rpx;
+  padding: 0;
+  margin-top: 0;
+  background: transparent;
+  border: 0;
+}
+.invite-share-overlay::after {
+  border: none;
 }
 
 .seat-nick {

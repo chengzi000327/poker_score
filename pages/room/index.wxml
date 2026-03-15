@@ -16,9 +16,10 @@
         <text class="seat-score {{item.score > 0 ? 'score-pos' : item.score < 0 ? 'score-neg' : ''}}">{{item.score >= 0 ? '+' : ''}}{{item.score || 0}}</text>
       </block>
       <block wx:else>
-        <view class="seat-circle seat-invite" bindtap="onTapInvite">
+        <view class="seat-circle seat-invite">
           <text class="invite-plus">+</text>
         </view>
+        <button class="invite-share-overlay" open-type="share"></button>
         <text class="seat-nick seat-nick-muted">邀请好友</text>
       </block>
     </view>
